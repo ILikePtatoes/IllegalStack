@@ -842,20 +842,12 @@ public class fListener implements Listener {
 
         }
         if (Protections.PreventEndPortalDestruction.isEnabled()) {
-            if (Material.matchMaterial("END_PORTAL") != null) {
+            if (Material.getType().getName().contains("END_PORTAL")) {
                 if (e.getBlock().getState().getBlockData() instanceof Directional) {
                     Directional d = (Directional) e.getBlock().getState().getBlockData();
                     if (e.getBlock().getRelative(d.getFacing()).getType() == Material.END_PORTAL) {
                         e.setCancelled(true);
                         getLog().append2(Msg.StaffEndPortalProtected.getValue(e.getBlock().getLocation().toString()));
-                    }
-                }
-            } else {  //1.12 and below don't have directional data have to do this another way.
-                for (BlockFace face : BlockFace.values()) {
-                    if (e.getBlock().getRelative(face).getType() == endPortal) {
-                        e.setCancelled(true);
-                        getLog().append2(Msg.StaffEndPortalProtected.getValue(e.getBlock().getLocation().toString()));
-
                     }
                 }
             }
